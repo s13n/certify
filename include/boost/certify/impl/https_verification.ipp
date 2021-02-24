@@ -34,6 +34,19 @@ verify_server_certificates(int preverified, X509_STORE_CTX* ctx) noexcept
 }
 
 void
+enable_revocation_check(::X509_VERIFY_PARAM* param)
+{
+    ::X509_VERIFY_PARAM_set_flags(param, X509_V_FLAG_CRL_CHECK);
+}
+
+void
+enable_revocation_check(::SSL* handle)
+{
+    auto* param = ::SSL_get0_param(handle);
+    enable_revocation_check(param);
+}
+
+void
 set_server_hostname(::X509_VERIFY_PARAM* param, string_view hostname, system::error_code& ec)
 {
     ::X509_VERIFY_PARAM_set_hostflags(param,

@@ -10,6 +10,13 @@ namespace certify
 
 template<class NextLayer>
 void
+enable_revocation_check(asio::ssl::stream<NextLayer>& stream)
+{
+    detail::enable_revocation_check(stream.native_handle());
+}
+    
+template<class NextLayer>
+void
 set_server_hostname(asio::ssl::stream<NextLayer>& stream,
                     string_view hostname,
                     system::error_code& ec)

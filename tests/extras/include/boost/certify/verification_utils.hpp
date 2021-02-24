@@ -174,6 +174,12 @@ public:
         return handle_.get();
     }
 
+    void enable_revocation_check()
+    {
+        auto* param = ::X509_STORE_CTX_get0_param(handle_.get());
+        detail::enable_revocation_check(param);
+    }
+    
     void set_server_hostname(string_view hostname)
     {
         auto* param = ::X509_STORE_CTX_get0_param(handle_.get());
@@ -225,6 +231,7 @@ verify_chain(boost::filesystem::path const& chain_path,
 
     auto cert_chain = boost::certify::certificate_chain::from_file(chain_path);
     boost::certify::store_ctx ctx{cert_chain, store};
+    ctx.enable_revocation_check();
     ctx.set_server_hostname(chain_path.stem().string());
     ctx.verify(ec);
 }

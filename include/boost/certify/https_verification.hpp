@@ -17,6 +17,9 @@ inline bool
 verify_certificate_chain(::X509_STORE_CTX* ctx);
 
 inline void
+enable_revocation_check(::SSL* handle);
+
+inline void
 set_server_hostname(::SSL* handle,
                     string_view hostname,
                     system::error_code& ec);
@@ -42,6 +45,10 @@ namespace boost
 {
 namespace certify
 {
+
+template<class NextLayer>
+void
+enable_revocation_check(asio::ssl::stream<NextLayer>& stream);
 
 template<class NextLayer>
 void
