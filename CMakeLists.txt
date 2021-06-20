@@ -60,7 +60,7 @@ write_basic_package_version_file(
 
 install(FILES
             "certifyConfig.cmake"
-            "${CMAKE_BINARY_DIR}/certifyConfigVersion.cmake"
+            "${CMAKE_CURRENT_BINARY_DIR}/certifyConfigVersion.cmake"
         DESTINATION lib/cmake/certify)
 
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
