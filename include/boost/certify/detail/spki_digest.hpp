@@ -2,7 +2,7 @@
 #define BOOST_CERTIFY_DETAIL_SPKI_DIGEST_HPP
 
 #include <array>
-#include <boost/make_unique.hpp>
+#include <boost/smart_ptr/make_unique.hpp>
 #include <cassert>
 #include <openssl/x509.h>
 

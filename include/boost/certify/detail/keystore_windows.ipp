@@ -2,7 +2,7 @@
 #define BOOST_CERTIFY_TLS_DETAIL_KEYSTORE_WINDOWS
 
 #include <boost/asio/ssl/verify_context.hpp>
-#include <boost/make_unique.hpp>
+#include <boost/smart_ptr/make_unique.hpp>
 
 #include <sstream>
 #include <wincrypt.h>
