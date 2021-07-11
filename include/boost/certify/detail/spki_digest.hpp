@@ -4,6 +4,7 @@
 #include <array>
 #include <boost/smart_ptr/make_unique.hpp>
 #include <cassert>
+#include <cstdint>
 #include <openssl/x509.h>
 
 namespace boost

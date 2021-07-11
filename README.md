@@ -2,7 +2,7 @@
 
 | Linux/OSX | Windows
 |-----------|---------
-[![Build Status](https://travis-ci.org/djarek/certify.svg?branch=master)](https://travis-ci.org/djarek/certify) | [![Build status](https://ci.appveyor.com/api/projects/status/4u2oe4l7am609bv0?svg=true)](https://ci.appveyor.com/project/djarek/certify)
+[![Build Status](https://travis-ci.com/jens-diewald/certify.svg?branch=master)](https://travis-ci.com/jens-diewald/certify) | [![Build status](https://ci.appveyor.com/api/projects/status/4gs6gn2tdlqbwvls?svg=true)](https://ci.appveyor.com/project/jens-diewald/certify)
 
 
 

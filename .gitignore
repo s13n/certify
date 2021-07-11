@@ -2,3 +2,4 @@ build
 .directory
 CMakeSettings.json
 .vs
+.vscode/settings.json

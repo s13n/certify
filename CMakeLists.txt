@@ -1,4 +1,7 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.13)
+cmake_policy(SET CMP0074 NEW)      # Use <packageName>_ROOT variable in find_package()
+cmake_policy(SET CMP0077 NEW)      # option() honors normal variable
+
 project(certify VERSION 0.1 LANGUAGES CXX)
 
 list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/CMakeModules)

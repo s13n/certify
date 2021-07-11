@@ -57,9 +57,10 @@ matrix:
 
     # OS X Clang, C++14, Debug
     - os: osx
+      osx_image: xcode10.2
       compiler: clang++
       before_install:
-        - git clone https://github.com/openssl/openssl.git
+        - git clone -b OpenSSL_1_1_1-stable https://github.com/openssl/openssl.git
         - cd openssl
         - export OPENSSL_ROOT=~/openssl-prefix
         - mkdir -p $OPENSSL_ROOT
