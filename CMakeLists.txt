@@ -50,28 +50,30 @@ target_link_libraries(
         OpenSSL::SSL
         OpenSSL::Crypto)
 
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-    "certifyConfigVersion.cmake"
-    COMPATIBILITY AnyNewerVersion)
+if(${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
+    include(CMakePackageConfigHelpers)
+    write_basic_package_version_file(
+        "certifyConfigVersion.cmake"
+        COMPATIBILITY AnyNewerVersion)
 
-install(FILES
+    install(FILES
             "certifyConfig.cmake"
             "${CMAKE_BINARY_DIR}/certifyConfigVersion.cmake"
         DESTINATION lib/cmake/certify)
 
-install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
+    install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
         DESTINATION include
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.ipp")
 
-install(TARGETS core
+    install(TARGETS core
         EXPORT certifyTargets
         INCLUDES DESTINATION include)
 
-install(EXPORT certifyTargets
+    install(EXPORT certifyTargets
         FILE certifyTargets.cmake
         NAMESPACE certify::
         DESTINATION lib/cmake/certify)
+endif()
 
 include(CTest)
 if(BUILD_TESTING)
