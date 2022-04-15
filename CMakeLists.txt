@@ -1,12 +1,12 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.21)
 cmake_policy(SET CMP0074 NEW)      # Use <packageName>_ROOT variable in find_package()
 cmake_policy(SET CMP0077 NEW)      # option() honors normal variable
 
 project(certify VERSION 0.1 LANGUAGES CXX)
 
 if(BOOST_SUPERPROJECT_SOURCE_DIR)
-    message(VERBOSE "certify library is part of Bosst superproject")
-else()
+    message(VERBOSE "certify library is part of Boost superproject")
+elseif(PROJECT_IS_TOP_LEVEL)
     list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/CMakeModules)
 
     if (CMAKE_VERSION VERSION_LESS 3.11)
@@ -16,12 +16,15 @@ else()
             file(
                 DOWNLOAD
                 "https://gitlab.kitware.com/cmake/cmake/raw/release/Modules/FindBoost.cmake"
-                "${CMAKE_BINARY_DIR}/cmake/FindBoost.cmake")
+                "${CMAKE_BINARY_DIR}/cmake/FindBoost.cmake"
+	    )
         endif()
         list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_BINARY_DIR}/cmake)
     endif()
 
     find_package(Boost 1.67 COMPONENTS system REQUIRED)
+else()
+    message(STATUS "certify library is built within the project")
 endif()
 
 find_package(Threads)
@@ -48,31 +51,33 @@ target_link_libraries(
         Boost::system
         Threads::Threads
         OpenSSL::SSL
-        OpenSSL::Crypto)
+        OpenSSL::Crypto
+)
 
 if(${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
     include(CMakePackageConfigHelpers)
     write_basic_package_version_file(
         "certifyConfigVersion.cmake"
-        COMPATIBILITY AnyNewerVersion)
-
+        COMPATIBILITY AnyNewerVersion
+    )
     install(FILES
             "certifyConfig.cmake"
             "${CMAKE_BINARY_DIR}/certifyConfigVersion.cmake"
-        DESTINATION lib/cmake/certify)
-
+        DESTINATION lib/cmake/certify
+    )
     install(DIRECTORY ${CMAKE_SOURCE_DIR}/include/
         DESTINATION include
-        FILES_MATCHING PATTERN "*.hpp" PATTERN "*.ipp")
-
+        FILES_MATCHING PATTERN "*.hpp" PATTERN "*.ipp"
+    )
     install(TARGETS core
         EXPORT certifyTargets
-        INCLUDES DESTINATION include)
-
+        INCLUDES DESTINATION include
+    )
     install(EXPORT certifyTargets
         FILE certifyTargets.cmake
         NAMESPACE certify::
-        DESTINATION lib/cmake/certify)
+        DESTINATION lib/cmake/certify
+    )
 endif()
 
 include(CTest)
