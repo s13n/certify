@@ -1,30 +1,17 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.11)
 cmake_policy(SET CMP0074 NEW)      # Use <packageName>_ROOT variable in find_package()
 cmake_policy(SET CMP0077 NEW)      # option() honors normal variable
 
 project(certify VERSION 0.1 LANGUAGES CXX)
 
+get_directory_property(CERTIFY_HAS_PARENT PARENT_DIRECTORY)
 if(BOOST_SUPERPROJECT_SOURCE_DIR)
     message(VERBOSE "certify library is part of Boost superproject")
-elseif(PROJECT_IS_TOP_LEVEL)
-    list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/CMakeModules)
-
-    if (CMAKE_VERSION VERSION_LESS 3.11)
-        # Latest FindBoost.cmake has likely been updated to detect Boost version not yet released
-        if (NOT EXISTS "${CMAKE_BINARY_DIR}/cmake/FindBoost.cmake")
-            message(STATUS "Downloading FindBoost.cmake from https://gitlab.kitware.com/cmake/ release branch")
-            file(
-                DOWNLOAD
-                "https://gitlab.kitware.com/cmake/cmake/raw/release/Modules/FindBoost.cmake"
-                "${CMAKE_BINARY_DIR}/cmake/FindBoost.cmake"
-	    )
-        endif()
-        list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_BINARY_DIR}/cmake)
-    endif()
-
-    find_package(Boost 1.67 COMPONENTS system REQUIRED)
-else()
+elseif(CERTIFY_HAS_PARENT)
     message(STATUS "certify library is built within the project")
+else()
+    list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/CMakeModules)
+    find_package(Boost 1.67 COMPONENTS system REQUIRED)
 endif()
 
 find_package(Threads)
