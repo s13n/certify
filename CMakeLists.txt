@@ -17,23 +17,22 @@ endif()
 find_package(Threads)
 find_package(OpenSSL REQUIRED)
 
-add_library(core INTERFACE)
+add_library(certify_core INTERFACE)
 
-add_library(certify::core ALIAS core)
+add_library(certify::core ALIAS certify_core)
 
-target_compile_features(core INTERFACE cxx_std_11)
+target_compile_features(certify_core INTERFACE cxx_std_11)
 
-target_include_directories(core INTERFACE
+target_include_directories(certify_core INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
 
 if(MSVC)
-    target_link_libraries(core INTERFACE Crypt32.lib)
+    target_link_libraries(certify_core INTERFACE Crypt32.lib)
 endif()
 
-target_link_libraries(
-    core
+target_link_libraries(certify_core
     INTERFACE
         Boost::system
         Threads::Threads
@@ -56,7 +55,7 @@ if(${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
         DESTINATION include
         FILES_MATCHING PATTERN "*.hpp" PATTERN "*.ipp"
     )
-    install(TARGETS core
+    install(TARGETS certify_core
         EXPORT certifyTargets
         INCLUDES DESTINATION include
     )
