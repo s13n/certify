@@ -2,6 +2,7 @@
 
 #include <boost/certify/verification_utils.hpp>
 #include <boost/core/lightweight_test.hpp>
+#include <filesystem>
 
 int
 main()
@@ -12,10 +13,10 @@ main()
     store.set_default_paths();
 
     int count = 0;
-    for (auto const& entry : boost::filesystem::directory_iterator{
+    for (auto const& entry : std::filesystem::directory_iterator{
            "libs/certify/tests/res/fail_chains/"})
     {
-        boost::system::error_code ec;
+        std::error_code ec;
         boost::certify::verify_chain(entry.path(), store, ec);
         if (!ec)
             BOOST_ERROR((entry.path().string() + ": expected failure").c_str());

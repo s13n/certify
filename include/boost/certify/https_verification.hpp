@@ -4,7 +4,7 @@
 #include <boost/certify/detail/config.hpp>
 
 #include <boost/asio/ssl/stream.hpp>
-#include <boost/utility/string_view.hpp>
+#include <string_view>
 
 namespace boost
 {
@@ -18,8 +18,8 @@ verify_certificate_chain(::X509_STORE_CTX* ctx);
 
 inline void
 set_server_hostname(::SSL* handle,
-                    string_view hostname,
-                    system::error_code& ec);
+                    std::string_view hostname,
+                    std::error_code& ec);
 
 extern "C" inline int
 verify_server_certificates(int preverified, X509_STORE_CTX* ctx) noexcept;
@@ -46,12 +46,12 @@ namespace certify
 template<class NextLayer>
 void
 set_server_hostname(asio::ssl::stream<NextLayer>& stream,
-                    string_view hostname,
-                    system::error_code& ec);
+                    std::string_view hostname,
+                    std::error_code& ec);
 
 template<class NextLayer>
 void
-set_server_hostname(asio::ssl::stream<NextLayer>& stream, string_view hostname);
+set_server_hostname(asio::ssl::stream<NextLayer>& stream, std::string_view hostname);
 
 void
 enable_native_https_server_verification(asio::ssl::context& context);

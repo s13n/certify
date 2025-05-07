@@ -13,7 +13,7 @@ main()
       boost::asio::ssl::context_base::method::tls_client};
     boost::asio::ssl::stream<boost::asio::ip::tcp::socket> stream{ioc, context};
 
-    boost::string_view hostname = "example.com";
+    std::string_view hostname = "example.com";
 
     BOOST_TEST(boost::certify::sni_hostname(stream).empty());
     boost::certify::sni_hostname(stream, static_cast<std::string>(hostname));

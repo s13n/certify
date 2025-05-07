@@ -1,6 +1,7 @@
 #ifndef BOOST_CERTIFY_STATUS_CACHE_HPP
 #define BOOST_CERTIFY_STATUS_CACHE_HPP
 
+#include <chrono>
 #include <mutex>
 #include <string>
 #include <unordered_map>

@@ -15,7 +15,7 @@ This file contains extensions to the implementation of `asio::ssl`.
 [source, c++]
 ----
 template<class AsyncStream>
-boost::string_view
+string_view
 sni_hostname(boost::asio::asio::ssl::stream<AsyncStream> const& stream);
 ----
 
@@ -29,7 +29,7 @@ template<class AsyncStream>
 void
 sni_hostname(boost::asio::asio::ssl::stream<AsyncStream>& stream,
              std::string const& hostname,
-             boost::system::error_code& ec);
+             error_code& ec);
 ----
 
 Sets the provided SNI hostname on the provided stream. On success, `ec` is
@@ -45,4 +45,4 @@ sni_hostname(asio::ssl::stream<AsyncStream>& stream,
 ----
 
 Sets the provided SNI hostname on the provided stream. On error a
-`boost::system::system_error` is thrown.
+`system_error` is thrown.

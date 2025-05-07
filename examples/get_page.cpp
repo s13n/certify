@@ -11,6 +11,7 @@
 #include <boost/certify/https_verification.hpp>
 
 #include <iostream>
+#include <string_view>
 
 namespace beast = boost::beast;
 namespace asio = boost::asio;
@@ -51,8 +52,8 @@ connect(asio::io_context& ctx,
 
 http::response<http::string_body>
 get(ssl::stream<tcp::socket>& stream,
-    boost::string_view hostname,
-    boost::string_view uri)
+    std::string_view hostname,
+    std::string_view uri)
 {
     http::request<http::empty_body> request;
     request.method(http::verb::get);
@@ -84,7 +85,7 @@ main()
     auto response = get(*stream_ptr, hostname, "/");
     std::cout << response << '\n';
 
-    boost::system::error_code ec;
+    std::error_code ec;
     stream_ptr->shutdown(ec);
     stream_ptr->next_layer().close(ec);
 }
