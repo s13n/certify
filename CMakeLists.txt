@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11)
 cmake_policy(SET CMP0074 NEW)      # Use <packageName>_ROOT variable in find_package()
 cmake_policy(SET CMP0077 NEW)      # option() honors normal variable
 
-project(certify VERSION 0.1 LANGUAGES CXX)
+project(certify VERSION 0.2 LANGUAGES CXX)
 
 set(BOOST_INCLUDE_LIBRARIES asio beast endian)
 
