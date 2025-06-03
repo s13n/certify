@@ -1,6 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
-cmake_policy(SET CMP0074 NEW)      # Use <packageName>_ROOT variable in find_package()
-cmake_policy(SET CMP0077 NEW)      # option() honors normal variable
+cmake_minimum_required(VERSION 3.24)
 
 project(certify VERSION 0.2 LANGUAGES CXX)
 
@@ -40,6 +38,7 @@ target_compile_features(certify_core INTERFACE cxx_std_17)
 
 target_include_directories(certify_core INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${Boost_INCLUDE_DIRS}>
     $<INSTALL_INTERFACE:include>
 )
 
@@ -49,9 +48,6 @@ endif()
 
 target_link_libraries(certify_core
     INTERFACE
-        $<BUILD_INTERFACE:Boost::asio>
-        $<BUILD_INTERFACE:Boost::beast>
-        $<BUILD_INTERFACE:Boost::endian>
         $<BUILD_INTERFACE:OpenSSL::SSL>
         $<BUILD_INTERFACE:OpenSSL::Crypto>
         $<BUILD_INTERFACE:Threads::Threads>
