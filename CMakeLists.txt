@@ -10,19 +10,8 @@ if(BOOST_SUPERPROJECT_SOURCE_DIR)
 elseif(CERTIFY_HAS_PARENT)
     message(STATUS "certify library is built within the project")
 else()
-    set(BOOST_USE_VERSION "1.88.0" CACHE STRING "Boost version number to use for fetching sources")
-    set(BOOST_USE_SUFFIX "-cmake.tar.xz" CACHE STRING "Boost source archive suffix")
-    set(BOOST_DOWNLOAD_URL "https://github.com/boostorg/boost/releases/download")
-    set(BOOST_SOURCE_URL "${BOOST_DOWNLOAD_URL}/boost-${BOOST_USE_VERSION}/boost-${BOOST_USE_VERSION}${BOOST_USE_SUFFIX}")
-
-    list(INSERT CMAKE_MODULE_PATH 0 ${PROJECT_SOURCE_DIR}/CMakeModules)
-    include(FetchContent)
-    FetchContent_Declare(Boost
-        URL ${BOOST_SOURCE_URL}
-        DOWNLOAD_EXTRACT_TIMESTAMP ON
-        FIND_PACKAGE_ARGS 1.67.0
-    )
-    FetchContent_MakeAvailable(Boost)
+    message(STATUS "trying to find a usable installed version of Boost")
+    find_package(Boost 1.67.0)
 endif()
 
 add_compile_definitions(BOOST_ERROR_CODE_HEADER_ONLY BOOST_REGEX_NO_LIB BOOST_DATE_TIME_NO_LIB)
